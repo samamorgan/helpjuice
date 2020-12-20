@@ -28,7 +28,8 @@ setup(
     long_description_content_type="text/markdown",
     long_description=readme,
     project_urls={
-        "Source": about["__url__"],
+        "Documentation": about["__url__"],
+        "Source": "https://github.com/samamorgan/helpjuice",
     },
     name=about["__title__"],
     packages=packages,

@@ -3,7 +3,7 @@
 
 __title__ = "helpjuice"
 __description__ = "Python Helpjuice API Wrapper."
-__url__ = "https://requests.readthedocs.io"
+__url__ = "https://helpjuice.readthedocs.io"
 __version__ = "0.1.0"
 __author__ = "Sam Morgan"
 __author_email__ = "sam@samamorgan.com"
