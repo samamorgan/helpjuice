@@ -1,0 +1,380 @@
+{
+  "meta": { "current": 1, "limit": 2, "total_pages": 4, "total_count": 50 },
+  "activities": {
+    "endpoint": "activities",
+    "GET": [
+      {
+        "id": 1,
+        "trackable_id": 22,
+        "trackable_type": "Question",
+        "owner_id": 1,
+        "action": "create",
+        "created_at": "2020-07-29T09:37:03.529Z"
+      },
+      {
+        "id": 2,
+        "trackable_id": 22,
+        "trackable_type": "Question",
+        "owner_id": 1,
+        "action": "create",
+        "created_at": "2020-07-29T09:37:03.529Z"
+      }
+    ]
+  },
+  "activity": {
+    "endpoint": "activities",
+    "GET": {
+      "id": 1,
+      "trackable_id": 22,
+      "trackable_type": "Question",
+      "owner_id": 1,
+      "action": "create",
+      "created_at": "2020-07-29T09:37:03.529Z"
+    }
+  },
+  "articles": {
+    "endpoint": "articles",
+    "GET": [
+      {
+        "id": 1,
+        "name": "New Article",
+        "views": 112,
+        "accessibility": 0,
+        "description": "my new article",
+        "codename": "new-article",
+        "created_at": "2020-07-29T09:37:03.529Z",
+        "updated_at": "2020-07-29T09:37:03.529Z",
+        "published": false,
+        "answer": [
+          {
+            "body": "<p>New Article</p>",
+            "body_txt": "New Article",
+            "format": "html",
+            "updated_at": "2020-07-29T09:37:03.529Z"
+          }
+        ],
+        "url": "Url to your article"
+      },
+      {
+        "id": 2,
+        "name": "Second Article",
+        "views": 12,
+        "accessibility": 0,
+        "description": "my second article",
+        "codename": "second-article",
+        "created_at": "2020-07-29T09:37:03.529Z",
+        "updated_at": "2020-07-29T09:37:03.529Z",
+        "published": true,
+        "answer": [
+          {
+            "body": "<p>My Second Article</p>",
+            "body_txt": "My Second Article",
+            "format": "html",
+            "updated_at": "2020-07-29T09:37:03.529Z"
+          }
+        ],
+        "url": "Url to your article"
+      }
+    ]
+  },
+  "article": {
+    "endpoint": "articles",
+    "GET": {
+      "id": 1,
+      "name": "New Article",
+      "views": 112,
+      "accessibility": 0,
+      "description": "my new article",
+      "codename": "new-article",
+      "created_at": "2020-07-29T09:37:03.529Z",
+      "updated_at": "2020-07-29T09:37:03.529Z",
+      "published": false,
+      "answer": [
+        {
+          "body": "<p>New Article</p>",
+          "body_txt": "New Article",
+          "format": "html",
+          "updated_at": "2020-07-29T09:37:03.529Z"
+        }
+      ],
+      "url": "Url to your article"
+    },
+    "PUT": {
+      "name": "new article",
+      "codename": "new-article"
+    },
+    "POST": {
+      "name": "new article",
+      "description": "This is a new article",
+      "codename": "new-article",
+      "visibility_id": 0,
+      "body": "<p>this is the article body</p>",
+      "published": true,
+      "category_ids": [1, 2],
+      "user_ids": [1, 2, 6],
+      "group_ids": [1],
+      "contributor_user_ids": [1, 2]
+    },
+    "DELETE": {}
+  },
+  "categories": {
+    "endpoint": "categories",
+    "GET": [
+      {
+        "id": 5,
+        "name": "Category",
+        "codename": "22-category",
+        "accessibility": 0,
+        "description": "Description",
+        "published_questions": [
+          {
+            "id": 22,
+            "name": "Published article",
+            "url": "Url to your article"
+          }
+        ],
+        "draft_questions": [
+          {
+            "id": 23,
+            "name": "Draft article",
+            "url": "Url to your article"
+          }
+        ],
+        "url": "Url to your category"
+      },
+      {
+        "id": 55,
+        "name": "Category",
+        "codename": "55-category",
+        "accessibility": 0,
+        "description": "Description",
+        "published_questions": [
+          {
+            "id": 22,
+            "name": "Published article",
+            "url": "Url to your article"
+          }
+        ],
+        "draft_questions": [
+          {
+            "id": 23,
+            "name": "Draft article",
+            "url": "Url to your article"
+          }
+        ],
+        "url": "Url to your category"
+      }
+    ]
+  },
+  "category": {
+    "endpoint": "categories",
+    "GET": {
+      "id": 1,
+      "name": "Category name",
+      "codename": "111-category",
+      "accessibility": 0,
+      "description": "Description",
+      "published_questions": [
+        {
+          "id": 22,
+          "name": "Published article",
+          "url": "Url to your article"
+        }
+      ],
+      "draft_questions": [
+        {
+          "id": 23,
+          "name": "Draft article",
+          "url": "Url to your article"
+        }
+      ],
+      "url": "Url to your category"
+    },
+    "PUT": {
+      "name": "New Category"
+    },
+    "POST": {
+      "parent_id": 1,
+      "accessibility": 1,
+      "description": "My Helpjuice category",
+      "name": "Category",
+      "codename": "category",
+      "archived": false,
+      "user_ids": [1, 2],
+      "group_ids": [1]
+    },
+    "DELETE": {}
+  },
+  "groups": {
+    "endpoint": "groups",
+    "GET": [
+      {
+        "id": 2,
+        "name": "second group",
+        "smart_load": false,
+        "created_at": "2020-07-29T09:37:03.529Z",
+        "auto_groups": [],
+        "users": [
+          {
+            "id": 1,
+            "name": "Jhon Doe",
+            "role_id": "superadmin"
+          },
+          {
+            "id": 2,
+            "name": "Jhon Best",
+            "role_id": "admin"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "new group",
+        "smart_load": false,
+        "created_at": "2020-07-29T09:37:03.529Z",
+        "auto_groups": [
+          {
+            "expression": "@gamil.com"
+          }
+        ],
+        "users": [
+          {
+            "id": 1,
+            "name": "Jhon Doe",
+            "role_id": "superadmin"
+          },
+          {
+            "id": 2,
+            "name": "Jhon Best",
+            "role_id": "admin"
+          }
+        ]
+      }
+    ]
+  },
+  "group": {
+    "endpoint": "groups",
+    "GET": {
+      "id": 1,
+      "name": "new group",
+      "smart_load": true,
+      "created_at": "2020-07-29T09:37:03.529Z",
+      "auto_groups": [
+        {
+          "expression": "@gmail.com"
+        },
+        {
+          "expression": "@email.com"
+        }
+      ],
+      "users": [
+        {
+          "id": 1,
+          "name": "John Doe",
+          "role_id": "superadmin"
+        },
+        {
+          "id": 2,
+          "name": "John Best",
+          "role_id": "admin"
+        }
+      ]
+    },
+    "PUT": {
+      "smart_load": true,
+      "auto_groups": "@email.com"
+    },
+    "POST": {
+      "name": "New Group",
+      "smart_load": true,
+      "user_ids": [1, 2],
+      "auto_groups": "@gmail.com, @email.com"
+    },
+    "DELETE": {}
+  },
+  "search": {
+    "endpoint": "search",
+    "GET": [
+      {
+        "id": 1,
+        "name": "Helpjuice Article",
+        "slug": "111-helpjuice-article",
+        "tag_names": [],
+        "answer_sample": "Short answer in few words",
+        "long_answer_sample": "Longer answer but not a full article",
+        "categories": {
+          "current": {
+            "id": 23,
+            "name": "Using Helpjuice",
+            "url": "Url to your category"
+          }
+        },
+        "last_published_date": "July 30th, 2020",
+        "last_published_user_name": "John Doe",
+        "is_published": true,
+        "is_internal": false,
+        "url": "Url to your article"
+      }
+    ]
+  },
+  "settings": {
+    "endpoint": { "GET": "settings/account", "PUT": "settings" },
+    "GET": {
+      "name": "Your Account",
+      "subdomain": "your_account",
+      "internal_kb": false,
+      "expire_password_after_days": null,
+      "contact_us_email": "support.youraccount.com",
+      "contact_us_subject": "[Support] {{ question.name }}",
+      "contact_us_single_sender": false,
+      "only_internal_article_requests": false,
+      "created_at": "2020-07-29T09:37:03.529Z"
+    },
+    "PUT": {
+      "name": "Your Account",
+      "subdomain": "your_account",
+      "internal_kb": false,
+      "expire_password_after_days": null,
+      "contact_us_email": "support.youraccount.com",
+      "contact_us_subject": "[Support] {{ question.name }}",
+      "contact_us_single_sender": false,
+      "only_internal_article_requests": false,
+      "created_at": "2020-07-29T09:37:03.529Z"
+    }
+  },
+  "users": {
+    "endpoint": "users",
+    "GET": [
+      {
+        "email": "jsmith@example.com",
+        "firstName": "John",
+        "lastName": "Smith"
+      },
+      {
+        "email": "alice@example.com",
+        "firstName": "Alice",
+        "lastName": "Jones"
+      }
+    ]
+  },
+  "user": {
+    "endpoint": "users",
+    "GET": {
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "john@doe.com",
+      "role_id": "admin"
+    },
+    "PUT": {
+      "first_name": "John"
+    },
+    "POST": {
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "jhon@doe.com",
+      "role_id": "admin",
+      "group_ids": [1, 2]
+    },
+    "DELETE": {}
+  }
+}
