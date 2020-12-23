@@ -1,8 +1,7 @@
 from pathlib import Path
 
+from setuptools import find_packages
 from setuptools import setup
-
-packages = ["helpjuice"]
 
 requires = ["requests"]
 
@@ -32,7 +31,7 @@ setup(
     long_description_content_type="text/markdown",
     long_description=readme,
     name=about["__title__"],
-    packages=packages,
+    packages=find_packages(),
     project_urls={
         "Documentation": about["__url__"],
         "Source": "https://github.com/samamorgan/helpjuice",
