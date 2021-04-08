@@ -44,6 +44,6 @@ class Search(Collection):
             query (str): Search query.
 
         Returns:
-            :obj:`helpjuice.Search`: Search results.
+            :obj:`helpjuice.api.Search`: Search results.
         """
         return super().get("search", params={"query": query}, *args, **kwargs)

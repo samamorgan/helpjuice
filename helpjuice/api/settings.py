@@ -30,7 +30,7 @@ class Settings(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-account-settings
 
         Returns:
-            :obj:`helpjuice.Settings`: Account settings.
+            :obj:`helpjuice.api.Settings`: Account settings.
         """
         return super().get("settings", "account")
 
@@ -40,6 +40,6 @@ class Settings(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#update-account-settings
 
         Returns:
-            :obj:`helpjuice.Settings`: Account settings.
+            :obj:`helpjuice.api.Settings`: Account settings.
         """
         return super().put("settings")

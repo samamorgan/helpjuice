@@ -32,7 +32,7 @@ class Article(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-an-article
 
         Returns:
-            :obj:`helpjuice.Article`
+            :obj:`helpjuice.api.Article`
         """
         return super().get("articles")
 
@@ -42,7 +42,7 @@ class Article(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#create-an-article
 
         Returns:
-            :obj:`helpjuice.Article`
+            :obj:`helpjuice.api.Article`
         """
         return super().post("articles")
 
@@ -52,7 +52,7 @@ class Article(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#update-an-article
 
         Returns:
-            :obj:`helpjuice.Article`
+            :obj:`helpjuice.api.Article`
         """
         return super().put("articles")
 
@@ -75,6 +75,6 @@ class Articles(Collection):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-all-articles
 
         Returns:
-            :obj:`helpjuice.Articles`
+            :obj:`helpjuice.api.Articles`
         """
         return super().get("articles", *args, **kwargs)

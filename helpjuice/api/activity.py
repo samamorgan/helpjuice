@@ -24,7 +24,7 @@ class Activity(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-an-activity
 
         Returns:
-            :obj:`helpjuice.Activity`
+            :obj:`helpjuice.api.Activity`
         """
         return super().get("activities")
 
@@ -40,6 +40,6 @@ class Activities(Collection):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-all-activities
 
         Returns:
-            :obj:`helpjuice.Activities`
+            :obj:`helpjuice.api.Activities`
         """
         return super().get("activities", *args, **kwargs)

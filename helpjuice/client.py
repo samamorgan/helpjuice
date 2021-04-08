@@ -1,12 +1,6 @@
-"""Helpjuice API wrapper
+"""Client
 
-https://help.helpjuice.com/en_US/api-v3/api-v3
-
-### Overview
-Version 3 of the Helpjuice API is structured around REST, HTTP, and JSON. API endpoint
-URLs are organized around resources, such as users or articles. It uses HTTP methods for
-indicating the action to take on a resource, and HTTP status codes for expressing error
-statues. Resources are represented in JSON following a conventional schema.
+This module provides a Client object to interface with the Helpjuice API.
 """
 import logging
 
@@ -15,7 +9,7 @@ from requests import Session
 from requests.adapters import HTTPAdapter
 from requests.auth import HTTPBasicAuth
 from requests.compat import urljoin
-from requests.packages.urllib3.util.retry import Retry
+from requests.packages.urllib3.util.retry import Retry  # type: ignore
 
 from helpjuice.api import *
 from helpjuice.errors import UnprocessableEntity
@@ -39,10 +33,7 @@ class HelpjuiceAuth(HTTPBasicAuth):
 
 
 class Client(Session):
-    """Helpjuice Client
-
-    Built on :obj:`requests.Session`.
-    """
+    """Helpjuice Client."""
 
     def __init__(self, account, api_key, v="v3", timeout=5, total=5, backoff_factor=30):
         """Helpjuice Client constructor.

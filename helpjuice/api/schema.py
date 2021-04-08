@@ -94,7 +94,7 @@ class Resource(dict, SchemaBase):
             resource (str): Resource endpoint.
 
         Returns:
-            :obj:`helpjuice.Resource`: Updated resource.
+            :obj:`helpjuice.api.Resource`: Updated resource.
         """
         response = self._client.put(
             [resource, getattr(self, "id", None)],
