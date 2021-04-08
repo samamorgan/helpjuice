@@ -23,7 +23,7 @@ class Group(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-an-group
 
         Returns:
-            :obj:`helpjuice.Group`
+            :obj:`helpjuice.api.Group`
         """
         return super().get("groups")
 
@@ -33,7 +33,7 @@ class Group(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#create-an-group
 
         Returns:
-            :obj:`helpjuice.Group`
+            :obj:`helpjuice.api.Group`
         """
         return super().post("groups")
 
@@ -43,7 +43,7 @@ class Group(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#update-an-group
 
         Returns:
-            :obj:`helpjuice.Group`
+            :obj:`helpjuice.api.Group`
         """
         return super().put("groups")
 
@@ -66,6 +66,6 @@ class Groups(Collection):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-all-groups
 
         Returns:
-            :obj:`helpjuice.Groups`
+            :obj:`helpjuice.api.Groups`
         """
         return super().get("groups", *args, **kwargs)

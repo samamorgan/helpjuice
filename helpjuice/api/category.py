@@ -29,7 +29,7 @@ class Category(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-an-category
 
         Returns:
-            :obj:`helpjuice.Category`
+            :obj:`helpjuice.api.Category`
         """
         return super().get("categories")
 
@@ -39,7 +39,7 @@ class Category(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#create-an-category
 
         Returns:
-            :obj:`helpjuice.Category`
+            :obj:`helpjuice.api.Category`
         """
         return super().post("categories")
 
@@ -49,7 +49,7 @@ class Category(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#update-an-category
 
         Returns:
-            :obj:`helpjuice.Category`
+            :obj:`helpjuice.api.Category`
         """
         return super().put("categories")
 
@@ -72,6 +72,6 @@ class Categories(Collection):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-all-categories
 
         Returns:
-            :obj:`helpjuice.Categories`
+            :obj:`helpjuice.api.Categories`
         """
         return super().get("categories", *args, **kwargs)

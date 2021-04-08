@@ -25,7 +25,7 @@ class User(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-a-user
 
         Returns:
-            :obj:`helpjuice.User`: Requested user.
+            :obj:`helpjuice.api.User`: Requested user.
         """
         return super().get("users")
 
@@ -35,7 +35,7 @@ class User(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#create-a-new-user
 
         Returns:
-            :obj:`helpjuice.User`: Requested user.
+            :obj:`helpjuice.api.User`: Requested user.
         """
         return super().post("users")
 
@@ -45,7 +45,7 @@ class User(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-a-user
 
         Returns:
-            :obj:`helpjuice.User`: Requested user.
+            :obj:`helpjuice.api.User`: Requested user.
         """
         return super().put("users")
 
@@ -55,7 +55,7 @@ class User(Resource):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-a-user
 
         Returns:
-            :obj:`helpjuice.User`: Requested user.
+            :obj:`helpjuice.api.User`: Requested user.
         """
         return super().delete("users")
 
@@ -74,6 +74,6 @@ class Users(Collection):
         https://help.helpjuice.com/en_US/api-v3/api-v3#retrieve-all-users
 
         Returns:
-            :obj:`helpjuice.Users`: Requested users.
+            :obj:`helpjuice.api.Users`: Requested users.
         """
         return super().get("users", *args, **kwargs)
