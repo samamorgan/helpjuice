@@ -17,6 +17,20 @@ from helpjuice.errors import UnprocessableEntity
 logger = logging.getLogger(__name__)
 
 
+def _setup_resources(client):
+    """Build each resource in a `Client` instance with a reference to that instance.
+
+    Args:
+        client (:obj:`helpjuice.client.Client`): Helpjuice client.
+    """
+    for name in dir(client):
+        attr = getattr(client, name)
+        if not hasattr(attr, "_client"):
+            continue
+
+        attr._client = client
+
+
 class HelpjuiceAuth(HTTPBasicAuth):
     """Attaches API Key Authentication to the given Request object."""
 
@@ -37,6 +51,19 @@ class Client(Session):
 
     Built on :obj:`requests.Session`.
     """
+
+    Settings = Settings
+    Activities = Activities
+    Activity = Activity
+    Article = Article
+    Articles = Articles
+    Categories = Categories
+    Category = Category
+    Group = Group
+    Groups = Groups
+    Search = Search
+    User = User
+    Users = Users
 
     def __init__(self, account, api_key, v="v3", timeout=5, total=5, backoff_factor=30):
         """Helpjuice Client constructor.
@@ -69,27 +96,7 @@ class Client(Session):
         self.mount("https://", adapter)
         self.mount("http://", adapter)
 
-        self.__build_resources()
-
-    def __build_resources(self):
-        """Add each resource with a reference to this instance."""
-        resources = (
-            Settings,
-            Activities,
-            Activity,
-            Article,
-            Articles,
-            Categories,
-            Category,
-            Group,
-            Groups,
-            Search,
-            User,
-            Users,
-        )
-        for resource in resources:
-            resource._client = self
-            setattr(self, resource.__name__, resource)
+        _setup_resources(self)
 
     def request(self, method, path, *args, **kwargs):
         """Override :obj:`Session` request method to add retries and output JSON.
