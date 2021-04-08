@@ -1,4 +1,4 @@
-"""Helpjuice Client
+"""Client
 
 This module provides a Client object to interface with the Helpjuice API.
 """
@@ -33,10 +33,7 @@ class HelpjuiceAuth(HTTPBasicAuth):
 
 
 class Client(Session):
-    """Helpjuice Client
-
-    Built on :obj:`requests.Session`.
-    """
+    """Helpjuice Client."""
 
     def __init__(self, account, api_key, v="v3", timeout=5, total=5, backoff_factor=30):
         """Helpjuice Client constructor.

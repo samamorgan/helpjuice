@@ -3,10 +3,13 @@ from pathlib import Path
 from setuptools import find_packages
 from setuptools import setup
 
-requires = ["requests"]
+path = Path(__file__).parent
+
+with path.joinpath("requirements.txt").open() as f:
+    requires = f.read().splitlines()
 
 about = {}
-with Path(__file__).parent.joinpath("helpjuice", "__version__.py").open() as f:
+with path.joinpath("helpjuice", "__version__.py").open() as f:
     exec(f.read(), about)
 
 with open("README.md", "r") as f:
