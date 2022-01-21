@@ -70,23 +70,17 @@ class Client(Session):
 
     def __build_resources(self):
         """Add each resource with a reference to this instance."""
-        resources = (
-            Settings,
-            Activities,
-            Activity,
-            Article,
-            Articles,
-            Categories,
-            Category,
-            Group,
-            Groups,
-            Search,
-            User,
-            Users,
-        )
-        for resource in resources:
-            resource._client = self
-            setattr(self, resource.__name__, resource)
+        for k, v in globals().items():
+            try:
+                for base in v.__bases__:
+                    if base.__name__ not in ["Collection", "Resource"]:
+                        continue
+
+                    v._client = self
+                    setattr(self, k, v)
+
+            except AttributeError:
+                continue
 
     def request(self, method, path, *args, **kwargs):
         """Override :obj:`Session` request method to add retries and output JSON.
