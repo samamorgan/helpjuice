@@ -13,17 +13,21 @@
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+root = Path(__file__).parent.parent
+sys.path.insert(0, str(root))
 
 
 # -- Project information -----------------------------------------------------
+about = {}
+with (root / "helpjuice" / "__version__.py").open() as f:
+    exec(f.read(), about)
 
-project = "helpjuice"
-copyright = "2021, Sam Morgan"
-author = "Sam Morgan"
+project = about["__title__"]
+copyright = about["__copyright__"]
+author = about["__author__"]
 
 # The full version, including alpha/beta/rc tags
-release = "0.1.4"
+release = about["__version__"]
 
 
 # -- General configuration ---------------------------------------------------
@@ -31,7 +35,24 @@ release = "0.1.4"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon", "myst_parser"]
+extensions = [
+    "autoapi.extension",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.napoleon",
+    "myst_parser",
+]
+
+autoapi_dirs = ["../helpjuice"]
+autoapi_ignore = ["*__version__"]
+autoapi_options = [
+    "members",
+    "undoc-members",
+    "show-inheritance",
+    "show-module-summary",
+    "imported-members",
+]
+autoapi_type = "python"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

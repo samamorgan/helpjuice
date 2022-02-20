@@ -13,18 +13,18 @@ class UnprocessableEntity(HTTPError):
     The response will also include an error object with an explanation of fields that
     are missing or invalid. Here is an example:
 
-    ```
-    HTTP/1.1 422 Unprocessable Entity
+    .. code-block::
+
+        HTTP/1.1 422 Unprocessable Entity
 
 
-    {
-      "errors": [
         {
-          "email": "is not valid."
+          "errors": [
+            {
+              "email": "is not valid."
+            }
+          ]
         }
-      ]
-    }
-    ```
     """
 
     def __init__(self, request, response):
