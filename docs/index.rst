@@ -1,8 +1,7 @@
 .. toctree::
-   :maxdepth: 2
+   :hidden:
 
-   index
-   autoapi\helpjuice\index
+   self
 
 #########
 helpjuice
