@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "createVenv",
+      "type": "shell",
+      "command": "${config:python.defaultInterpreterPath}",
+      "args": ["-m", "venv", "${workspaceFolder}/.venv"]
+    },
+    {
+      "label": "pipUpgrade",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "pip", "install", "--upgrade", "pip"]
+    },
+    {
+      "label": "pipInstall",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "-m",
+        "pip",
+        "install",
+        "-r",
+        "requirements.txt",
+        "-r",
+        "requirements_dev.txt",
+        "-r",
+        "requirements_test.txt"
+      ]
+    },
+    {
+      "label": "build",
+      "dependsOn": ["createVenv", "pipUpgrade", "pipInstall"],
+      "dependsOrder": "sequence"
+    }
+  ]
+}
