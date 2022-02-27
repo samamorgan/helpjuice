@@ -33,7 +33,33 @@ class HelpjuiceAuth(HTTPBasicAuth):
 
 
 class Client(Session):
-    """Helpjuice Client."""
+    """Helpjuice Client.
+
+    Constructs a :obj:`requests.Session` for Helpjuice API requests with
+    authorization, base URL, request timeouts, and request retries.
+
+    Args:
+        account (str): Helpjuice base address subdomain.
+        api_key (str): Helpjuice API key.
+        version (str, optional): Helpjuice API version. Defaults to "v3".
+        timeout (int, optional): :obj:`TimeoutHTTPAdapter` timeout value. Defaults to 5.
+        total (int, optional): :obj:`Retry` total value. Defaults to 5.
+        backoff_factor (int, optional): :obj:`Retry` backoff_factor value.
+            Defaults to 30.
+
+    Usage::
+
+      from helpjuice import Client
+
+      helpjuice = Client(account="your-account", api_key="ffb722a62e8**********************")
+
+      # Get a single article
+      article = helpjuice.Article(id=1).get()
+
+      # Search for articles with pagination
+      for question in helpjuice.Search().get(query="foo", limit=1000, paginate=True):
+          print(question)
+    """
 
     def __init__(self, account, api_key, v="v3", timeout=5, total=5, backoff_factor=30):
         """Helpjuice Client constructor.
@@ -70,23 +96,17 @@ class Client(Session):
 
     def __build_resources(self):
         """Add each resource with a reference to this instance."""
-        resources = (
-            Settings,
-            Activities,
-            Activity,
-            Article,
-            Articles,
-            Categories,
-            Category,
-            Group,
-            Groups,
-            Search,
-            User,
-            Users,
-        )
-        for resource in resources:
-            resource._client = self
-            setattr(self, resource.__name__, resource)
+        for k, v in globals().items():
+            try:
+                for base in v.__bases__:
+                    if base.__name__ not in ["Collection", "Resource"]:
+                        continue
+
+                    v._client = self
+                    setattr(self, k, v)
+
+            except AttributeError:
+                continue
 
     def request(self, method, path, *args, **kwargs):
         """Override :obj:`Session` request method to add retries and output JSON.

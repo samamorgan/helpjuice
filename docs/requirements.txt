@@ -1,0 +1,4 @@
+myst-parser
+Sphinx
+sphinx-autoapi
+sphinx-rtd-theme

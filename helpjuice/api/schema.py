@@ -37,14 +37,10 @@ class Resource(dict, SchemaBase):
     def __str__(self):
         id = getattr(self, "id", "")
 
-        return f"{self.name} #{id}" if id else self.name
+        return f"{self.__class__.__name__} #{id}" if id else self.__class__.__name__
 
     def __repr__(self):
         return object.__repr__(self)
-
-    @property
-    def name(self):
-        return self.__class__.__name__
 
     def get(self, resource, subresource=None, *args, **kwargs):
         """Retrieve a resource.
@@ -77,7 +73,7 @@ class Resource(dict, SchemaBase):
         """
         response = self._client.post(
             resource,
-            json={self.name.lower(): self},
+            json={self.__class__.__name__.lower(): self},
             *args,
             **kwargs,
         )
@@ -98,7 +94,7 @@ class Resource(dict, SchemaBase):
         """
         response = self._client.put(
             [resource, getattr(self, "id", None)],
-            json={self.name.lower(): self},
+            json={self.__class__.__name__.lower(): self},
             *args,
             **kwargs,
         )
