@@ -5,9 +5,13 @@ name: Python 🐍 package 📦 test
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
+      - develop
   pull_request:
-    branches: [master]
+    branches:
+      - master
+      - develop
 
 jobs:
   get-python-versions:
@@ -15,10 +19,10 @@ jobs:
     outputs:
       python-matrix: ${{ steps.get-python-versions-action.outputs.latest-python-versions }}
     steps:
-    - uses: snok/latest-python-versions@v1
-      id: get-python-versions-action
-      with:
-        min-version: 3.6
+      - uses: snok/latest-python-versions@v1
+        id: get-python-versions-action
+        with:
+          min-version: 3.6
 
   test:
     needs: [get-python-versions]
@@ -28,7 +32,6 @@ jobs:
         python-version: ${{ fromJson(needs.get-python-versions.outputs.python-matrix) }}
 
     steps:
-
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -38,16 +41,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install flake8 pytest responses
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
-      - name: Lint with flake8
-        run: |
-          # stop the build if there are Python syntax errors or undefined names
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          python -m pip install -r requirements-dev.txt
 
       - name: Test with pytest
         run: |
-          pytest
+          pytest --cov
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
