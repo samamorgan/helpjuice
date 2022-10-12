@@ -49,9 +49,13 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
 
-      - name: Test with pytest
+      - name: Install dependencies
+        run: poetry install --with test --no-interaction --no-root
+
+      - name: Run tests
         run: |
-          pytest --cov
+          source .venv/bin/activate
+          pytest
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
