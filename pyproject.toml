@@ -15,7 +15,7 @@ classifiers = [
 ]
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/python-poetry/poetry/issues"
+"Bug Tracker" = "https://github.com/samamorgan/helpjuice/issues"
 "Funding" = "https://github.com/sponsors/samamorgan"
 
 [tool.poetry.dependencies]
