@@ -6,8 +6,7 @@
       "console": "integratedTerminal",
       "program": "${file}",
       "request": "launch",
-      "type": "python",
-      "preLaunchTask": "build"
+      "type": "python"
     },
     {
       "name": "Python: Current File, Deep Inspect",
@@ -15,8 +14,7 @@
       "justMyCode": false,
       "program": "${file}",
       "request": "launch",
-      "type": "python",
-      "preLaunchTask": "build"
+      "type": "python"
     }
   ]
 }

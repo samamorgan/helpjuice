@@ -3,6 +3,7 @@
 This module provides a Client object to interface with the Helpjuice API.
 """
 import logging
+from importlib import metadata
 
 from requests import HTTPError
 from requests import Session
@@ -15,6 +16,7 @@ from helpjuice.api import *
 from helpjuice.errors import UnprocessableEntity
 
 logger = logging.getLogger(__name__)
+__version__ = metadata.version("helpjuice")
 
 
 class HelpjuiceAuth(HTTPBasicAuth):
@@ -80,6 +82,7 @@ class Client(Session):
 
         self.auth = HelpjuiceAuth(api_key=api_key)
         self.host = f"https://{account}.helpjuice.com/api/{v}/"
+        self.headers.update({"User-Agent": f"python-helpjuice/{__version__}"})
 
         adapter = TimeoutHTTPAdapter(
             timeout=timeout,

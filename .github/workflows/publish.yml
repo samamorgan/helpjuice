@@ -1,10 +1,8 @@
 name: Publish Python 🐍 distributions 📦 to PyPI
 
-# on:
-#   release:
-#     types: [created]
-
-on: pull_request
+on:
+  release:
+    types: [created]
 
 jobs:
   deploy:
@@ -18,5 +16,3 @@ jobs:
         uses: JRubics/poetry-publish@v1.13
         with:
           pypi_token: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_name: "helpjuice"
-          repository_url: "https://test.pypi.org/legacy/"
