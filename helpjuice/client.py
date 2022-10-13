@@ -3,7 +3,6 @@
 This module provides a Client object to interface with the Helpjuice API.
 """
 import logging
-from importlib import metadata
 
 from requests import HTTPError
 from requests import Session
@@ -15,8 +14,13 @@ from requests.packages.urllib3.util.retry import Retry  # type: ignore
 from helpjuice.api import *
 from helpjuice.errors import UnprocessableEntity
 
+try:
+    from importlib.metadata import version
+except ImportError:
+    from importlib_metadata import version
+
 logger = logging.getLogger(__name__)
-__version__ = metadata.version("helpjuice")
+__version__ = version("helpjuice")
 
 
 class HelpjuiceAuth(HTTPBasicAuth):
