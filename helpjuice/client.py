@@ -14,7 +14,13 @@ from requests.packages.urllib3.util.retry import Retry  # type: ignore
 from helpjuice.api import *
 from helpjuice.errors import UnprocessableEntity
 
+try:
+    from importlib.metadata import version
+except ImportError:
+    from importlib_metadata import version
+
 logger = logging.getLogger(__name__)
+__version__ = version("helpjuice")
 
 
 class HelpjuiceAuth(HTTPBasicAuth):
@@ -80,6 +86,7 @@ class Client(Session):
 
         self.auth = HelpjuiceAuth(api_key=api_key)
         self.host = f"https://{account}.helpjuice.com/api/{v}/"
+        self.headers.update({"User-Agent": f"python-helpjuice/{__version__}"})
 
         adapter = TimeoutHTTPAdapter(
             timeout=timeout,
