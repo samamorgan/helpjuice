@@ -1,4 +1,4 @@
-name: Python 🐍 package 📦 test
+name: Helpjuice CI
 
 on:
   pull_request:
@@ -19,13 +19,10 @@ jobs:
 
   test:
     needs: [get-python-versions]
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ${{ fromJson(needs.get-python-versions.outputs.python-matrix) }}
 
-    steps:
-      - name: Test package on Python ${{ matrix.python-version }}
-        uses: ./.github/workflows/test.yml
-        with:
-          python-version: ${{ matrix.python-version }}
+    uses: ./.github/workflows/test.yml
+    with:
+      python-version: ${{ matrix.python-version }}
