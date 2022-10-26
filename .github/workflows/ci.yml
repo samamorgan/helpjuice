@@ -23,9 +23,13 @@ jobs:
     #   matrix:
     #     python-version: ${{ fromJson(needs.get-python-versions.outputs.python-matrix) }}
 
+    strategy:
+      matrix:
+        number: [1, 2, 3]
+
     uses: ./.github/workflows/echo.yml
     with:
-      thing: 1234
+      thing: ${{ matrix.number }}
     # uses: ./.github/workflows/test.yml
     # with:
     #   python-version: ${{ matrix.python-version }}
