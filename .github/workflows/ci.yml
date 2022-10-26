@@ -7,25 +7,25 @@ on:
       - develop
 
 jobs:
-  get-python-versions:
-    runs-on: ubuntu-latest
-    outputs:
-      python-matrix: ${{ steps.get-python-versions-action.outputs.latest-python-versions }}
-    steps:
-      - uses: snok/latest-python-versions@v1
-        id: get-python-versions-action
-        with:
-          min-version: 3.7
+  # get-python-versions:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     python-matrix: ${{ steps.get-python-versions-action.outputs.latest-python-versions }}
+  #   steps:
+  #     - uses: snok/latest-python-versions@v1
+  #       id: get-python-versions-action
+  #       with:
+  #         min-version: 3.7
 
   test:
-    needs: [get-python-versions]
-    strategy:
-      matrix:
-        python-version: ${{ fromJson(needs.get-python-versions.outputs.python-matrix) }}
+    # needs: [get-python-versions]
+    # strategy:
+    #   matrix:
+    #     python-version: ${{ fromJson(needs.get-python-versions.outputs.python-matrix) }}
 
     uses: ./.github/workflows/echo.yml
     with:
-      thing: ${{ matrix.python-version }}
+      thing: 1234
     # uses: ./.github/workflows/test.yml
     # with:
     #   python-version: ${{ matrix.python-version }}
