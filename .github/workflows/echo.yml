@@ -1,0 +1,19 @@
+name: Echo a thing
+
+on:
+  workflow_call:
+    inputs:
+      thing:
+        description: The thing to echo
+        default: 3.10
+        type: number
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out ${{ github.repository }}
+        uses: actions/checkout@v3
+
+      - run: echo ${{ inputs.thing }}
