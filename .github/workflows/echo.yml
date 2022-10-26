@@ -6,6 +6,7 @@ on:
       thing:
         description: The thing to echo
         default: 3.10
+        required: false
         type: number
 
 jobs:
