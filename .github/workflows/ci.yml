@@ -19,10 +19,14 @@ jobs:
 
   test:
     needs: [get-python-versions]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ${{ fromJson(needs.get-python-versions.outputs.python-matrix) }}
 
-    uses: ./.github/workflows/test.yml
-    with:
-      python-version: ${{ matrix.python-version }}
+    steps:
+      - name: Test on ${{ github.repository }}
+        run: echo ${{ matrix.python-version }}
+    # uses: ./.github/workflows/test.yml
+    # with:
+    #   python-version: ${{ matrix.python-version }}
