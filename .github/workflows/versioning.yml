@@ -21,7 +21,6 @@ jobs:
           field: tool.poetry.version
 
       - name: Get previous tag
-        uses: younited/get-previous-tag-action@v1.0.0
-        id: tag
+        uses: rmeneely/git-last-tag@v1
 
-      - run: echo "${{ steps.read_toml.outputs.value }} ${{ steps.tag.outputs.previous-tag }}"
+      - run: echo "${{ steps.read_toml.outputs.value }} $LAST_TAG"
