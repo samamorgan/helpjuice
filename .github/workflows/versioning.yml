@@ -23,4 +23,6 @@ jobs:
       - name: Get previous tag
         uses: rmeneely/git-last-tag@v1
 
-      - run: echo "${{ steps.read_toml.outputs.value }} ${{ env.LAST_TAG }}"
+      - run: echo "${{ format('v{0}', steps.read_toml.outputs.value) }}"
+      - run: echo "${{ env.LAST_TAG }}"
+      - run: echo "${{ format('v{0}', steps.read_toml.outputs.value) == env.LAST_TAG }}"
