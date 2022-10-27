@@ -10,11 +10,14 @@ jobs:
   check-version:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
       - name: Read package version
         uses: SebRollen/toml-action@v1.0.1
         id: read_toml
         with:
-          file: ./pyproject.toml
+          file: pyproject.toml
           field: tool.poetry.version
 
       - name: Print version
