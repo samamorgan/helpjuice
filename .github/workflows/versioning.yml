@@ -26,5 +26,5 @@ jobs:
       - name: Ensure version bump
         if: ${{ format('v{0}', steps.read_toml.outputs.value) }} == ${{ env.LAST_TAG }}
         run: |
-          echo "Current package version matches last release tag. This must be bumped before merging to master!!"
+          echo "::error Current package version matches last release tag. This must be bumped before merging!"
           exit 1
