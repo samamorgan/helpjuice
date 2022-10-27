@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - master
-      - develop
 
 jobs:
   check-version:
@@ -26,5 +25,5 @@ jobs:
       - name: Ensure version bump
         if: ${{ format('v{0}', steps.read_toml.outputs.value) }} == ${{ env.LAST_TAG }}
         run: |
-          echo "::error Current package version matches last release tag. This must be bumped before merging!"
+          echo "::error file=pyproject.toml, line=3::Current package version matches last release tag. This must be bumped before merging!"
           exit 1
