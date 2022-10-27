@@ -20,7 +20,8 @@ jobs:
           file: pyproject.toml
           field: tool.poetry.version
 
-      - name: Get latest version tag
-        uses: WyriHaximus/github-action-get-previous-tag@v1
+      - name: Get previous tag
+        uses: younited/get-previous-tag-action@v1.0.0
+        id: tag
 
-      - run: echo "${{ steps.read_toml.outputs.value }} ${{ steps.previoustag.outputs.tag }}"
+      - run: echo "${{ steps.read_toml.outputs.value }} ${{ steps.tag.outputs.previous-tag }}"
