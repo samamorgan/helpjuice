@@ -23,6 +23,8 @@ jobs:
       - name: Get previous tag
         uses: rmeneely/git-last-tag@v1
 
-      - run: echo "${{ format('v{0}', steps.read_toml.outputs.value) }}"
-      - run: echo "${{ env.LAST_TAG }}"
-      - run: echo "${{ format('v{0}', steps.read_toml.outputs.value) == env.LAST_TAG }}"
+      - name: Ensure version bump
+        if: ${{ format('v{0}', steps.read_toml.outputs.value) }} == ${{ env.LAST_TAG }}
+        run: |
+          echo "Current package version matches last release tag. This must be bumped before merging to master!!"
+          exit 1
