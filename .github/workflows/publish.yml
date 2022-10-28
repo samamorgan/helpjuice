@@ -5,8 +5,7 @@ on:
     types: [created]
 
 jobs:
-  deploy:
-    name: Deploy Python 🐍 distributions 📦 to PyPI
+  publish:
     runs-on: ubuntu-latest
 
     steps:

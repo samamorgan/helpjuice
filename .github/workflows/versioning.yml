@@ -1,0 +1,34 @@
+name: Python 🐍 package 📦 versioning
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Read package version
+        uses: SebRollen/toml-action@v1.0.1
+        id: read_toml
+        with:
+          file: pyproject.toml
+          field: tool.poetry.version
+
+      - name: Get previous tag
+        uses: rmeneely/git-last-tag@v1
+
+      - name: Validate SEMVER
+        uses: rubenesp87/semver-validation-action@0.0.6
+        with:
+          version: ${{ steps.read_toml.outputs.value }}
+
+      - name: Ensure version bump
+        if: ${{ format('v{0}', steps.read_toml.outputs.value) }} == ${{ env.LAST_TAG }}
+        run: |
+          echo "::error file=pyproject.toml, line=3::Current package version matches last release tag. This must be bumped before merging!"
+          exit 1
