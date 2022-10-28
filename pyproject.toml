@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "helpjuice"
-version = "3.0.2"
+version = "3.0.3"
 description = "Python Helpjuice API Wrapper."
 license = "GPL-3.0-or-later"
 authors = ["Sam Morgan <sam@samamorgan.com>"]
