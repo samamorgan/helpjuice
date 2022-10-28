@@ -27,3 +27,8 @@ jobs:
         run: |
           echo "::error file=pyproject.toml, line=3::Current package version matches last release tag. This must be bumped before merging!"
           exit 1
+
+      - name: Validate SEMVER
+        uses: rubenesp87/semver-validation-action@0.0.6
+        with:
+          version: "fubar" # ${{ steps.read_toml.outputs.value }}
