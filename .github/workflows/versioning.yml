@@ -25,7 +25,7 @@ jobs:
       - name: Validate SEMVER
         uses: rubenesp87/semver-validation-action@0.0.6
         with:
-          version: "fubar" # ${{ steps.read_toml.outputs.value }}
+          version: ${{ steps.read_toml.outputs.value }}
 
       - name: Ensure version bump
         if: ${{ format('v{0}', steps.read_toml.outputs.value) }} == ${{ env.LAST_TAG }}
