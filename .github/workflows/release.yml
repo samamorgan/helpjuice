@@ -9,20 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Read package version
-        uses: SebRollen/toml-action@v1.0.1
-        id: read_toml
-        with:
-          file: pyproject.toml
-          field: tool.poetry.version
-
-      - name: Add version tag
-        uses: rickstaa/action-create-tag@v1
-        with:
-          tag: ${{ format('v{0}', steps.read_toml.outputs.value) }}
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           generate_release_notes: true
