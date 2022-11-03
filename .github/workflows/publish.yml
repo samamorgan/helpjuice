@@ -1,15 +1,33 @@
 name: Publish Python 🐍 distributions 📦 to PyPI
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - master
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Read package version
+        uses: SebRollen/toml-action@v1.0.1
+        id: read_toml
+        with:
+          file: pyproject.toml
+          field: tool.poetry.version
+
+      - name: Add version tag
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: ${{ format('v{0}', steps.read_toml.outputs.value) }}
+
+      - uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ format('v{0}', steps.read_toml.outputs.value) }}
+          generate_release_notes: true
 
       - name: Build and publish to pypi
         uses: JRubics/poetry-publish@v1.13
