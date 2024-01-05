@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       package-version: ${{ steps.package-version.outputs.package-version }}
-      release: ${{ steps.version.outputs.release }}
+      release: ${{ steps.release-version.outputs.release }}
     steps:
       - uses: actions/checkout@v4
 
