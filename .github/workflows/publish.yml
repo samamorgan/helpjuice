@@ -6,30 +6,57 @@ on:
       - master
 
 jobs:
-  release:
+  get-package-version:
     runs-on: ubuntu-latest
+    outputs:
+      package-version: ${{ steps.package-version.outputs.package-version }}
+      release: ${{ steps.version.outputs.release }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        id: setup-python
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+      - name: Load cached venv
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Get package version
+        id: package-version
+        run: |
+          echo "package-version=v$(poetry version --short)" >> $GITHUB_OUTPUT
+
+      - name: Get release version
+        id: release-version
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          repository: ${{ github.repository }}
+
+  deploy:
+    name: Deploy Python 🐍 distributions 📦 to PyPI
+    needs: [get-package-version]
+    runs-on: ubuntu-latest
+    if: needs.get-package-version.outputs.package-version != needs.get-package-version.outputs.release
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Read package version
-        uses: SebRollen/toml-action@v1.0.1
-        id: read_toml
-        with:
-          file: pyproject.toml
-          field: tool.poetry.version
-
-      - name: Add version tag
-        uses: rickstaa/action-create-tag@v1
-        with:
-          tag: ${{ format('v{0}', steps.read_toml.outputs.value) }}
-
-      - uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ format('v{0}', steps.read_toml.outputs.value) }}
-          generate_release_notes: true
 
       - name: Build and publish to pypi
         uses: JRubics/poetry-publish@v1.13
         with:
           pypi_token: ${{ secrets.PYPI_API_TOKEN }}
+
+      - uses: ncipollo/release-action@v1
+        with:
+          commit: ${{ github.ref_name }}
+          tag: ${{ needs.get-package-version.outputs.package-version }}
+          generateReleaseNotes: true
