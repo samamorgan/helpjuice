@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   get-package-version:
@@ -33,8 +34,7 @@ jobs:
 
       - name: Get package version
         id: package-version
-        run: |
-          echo "package-version=v$(poetry version --short)" >> $GITHUB_OUTPUT
+        run: echo "package-version=v$(poetry version --short)" >> $GITHUB_OUTPUT
 
       - name: Get release version
         id: release-version
@@ -61,3 +61,6 @@ jobs:
           commit: ${{ github.ref_name }}
           tag: ${{ needs.get-package-version.outputs.package-version }}
           generateReleaseNotes: true
+          artifacts: |
+            dist/*.whl
+            dist/*.tar.gz
