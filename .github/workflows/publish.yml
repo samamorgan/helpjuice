@@ -1,4 +1,4 @@
-name: Publish Python 🐍 distributions 📦 to PyPI
+name: Publish Python 🐍 package 📦 to PyPI
 
 on:
   push:
@@ -8,16 +8,17 @@ on:
 
 jobs:
   get-package-version:
-    name: Get Helpjuice 🧃 package version
+    name: Get ${{ github.ref_name }} package version
     runs-on: ubuntu-latest
     outputs:
       package-version: ${{ steps.package-version.outputs.package-version }}
       version-compairson: ${{ steps.semver.outputs.comparison-result}}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout ${{ github.action_repository }}
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        id: setup-python
+      - name: Setup Python
+        uses: actions/setup-python@v5
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
@@ -25,12 +26,6 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
           installer-parallel: true
-
-      - name: Load cached venv
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
       - name: Get package version
         id: package-version
@@ -43,16 +38,17 @@ jobs:
           repository: ${{ github.repository }}
 
       - name: Analyze semver
-        uses: madhead/semver-utils@latest
         id: semver
+        uses: madhead/semver-utils@latest
         with:
           lenient: false
           version: ${{ steps.package-version.outputs.package-version }}
           compare-to: ${{ steps.release-version.outputs.release }}
 
-      - name: Pre-release check
+      - name: Check pre-release
         if: ${{ steps.semver.outputs.prerelease != '' }}
         run: |
+          echo "Checking if version is a pre-release"
           echo "::error::Skipping pre-release version: ${{ steps.package-version.outputs.package-version}}"
           exit 1
 
@@ -63,14 +59,16 @@ jobs:
     if: ${{ needs.get-package-version.outputs.version-compairson != '=' }}
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout ${{ github.action_repository }}
+        uses: actions/checkout@v3
 
-      - name: Build and publish to pypi
+      - name: Build and publish to PyPI
         uses: JRubics/poetry-publish@v1.13
         with:
           pypi_token: ${{ secrets.PYPI_API_TOKEN }}
 
-      - uses: ncipollo/release-action@v1
+      - name: Create release ${{ needs.get-package-version.outputs.package-version }}
+        uses: ncipollo/release-action@v1
         with:
           commit: ${{ github.ref_name }}
           tag: ${{ needs.get-package-version.outputs.package-version }}
