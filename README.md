@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/pypi/v/helpjuice?style=for-the-badge&logo=pypi&logoColor=fff)](https://pypi.org/project/helpjuice/)
 [![Python](https://img.shields.io/pypi/pyversions/helpjuice?style=for-the-badge&logo=python&logoColor=fff)](https://pypi.org/project/helpjuice/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge&logo=gnu&logoColor=fff)](https://www.gnu.org/licenses/gpl-3.0)
-[![Tests](https://img.shields.io/github/workflow/status/samamorgan/helpjuice/Python%20%F0%9F%90%8D%20package%20%F0%9F%93%A6%20test?style=for-the-badge&logo=githubactions&logoColor=fff&label=Tests)](https://github.com/samamorgan/helpjuice/actions)
+[![Tests](https://img.shields.io/github/actions/workflow/status/samamorgan/helpjuice/test.yml?branch=master)](https://github.com/samamorgan/helpjuice/actions/workflows/test.yml)
 [![Codecov](https://img.shields.io/codecov/c/gh/samamorgan/helpjuice?logo=codecov&logoColor=fff&style=for-the-badge)](https://codecov.io/gh/samamorgan/helpjuice)
 [![Docs](https://img.shields.io/readthedocs/helpjuice?logo=readthedocs&logoColor=fff&style=for-the-badge)](https://helpjuice.readthedocs.io/)
 
