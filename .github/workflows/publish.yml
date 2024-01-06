@@ -7,6 +7,7 @@ on:
 
 jobs:
   get-package-version:
+    name: Get Helpjuice 🧃 package version
     runs-on: ubuntu-latest
     outputs:
       package-version: ${{ steps.package-version.outputs.package-version }}
