@@ -19,7 +19,7 @@ classifiers = [
 "Funding" = "https://github.com/sponsors/samamorgan"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 requests = "^2.28.1"
 importlib-metadata = "^5.0.0"
 
