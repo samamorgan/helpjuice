@@ -13,6 +13,7 @@ jobs:
     outputs:
       package-version: ${{ steps.package-version.outputs.package-version }}
       release: ${{ steps.release-version.outputs.release }}
+      prerelease: ${{ steps.semver.outputs.prerelease }}
     steps:
       - uses: actions/checkout@v4
 
@@ -42,6 +43,13 @@ jobs:
         with:
           repository: ${{ github.repository }}
 
+      - name: Analyze semver
+        uses: madhead/semver-utils@latest
+        id: semver
+        with:
+          lenient: false
+          version: ${${{ steps.package-version.outputs.package-version }}#v}
+
   deploy:
     name: Deploy Python 🐍 distributions 📦 to PyPI
     needs: [get-package-version]
@@ -49,6 +57,12 @@ jobs:
     if: needs.get-package-version.outputs.package-version != needs.get-package-version.outputs.release
 
     steps:
+      - name: Check semver
+        if: ${{ needs.get-package-version.outputs.prerelease != '' }}
+        run: |
+          echo "::error::Skipping pre-release version: ${{ needs.get-package-version.outputs.package-version }}"
+          exit 1
+
       - uses: actions/checkout@v3
 
       - name: Build and publish to pypi
