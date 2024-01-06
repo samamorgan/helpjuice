@@ -11,7 +11,7 @@ jobs:
     name: Get Helpjuice 🧃 package version
     runs-on: ubuntu-latest
     outputs:
-      package-tag: ${{ steps.package-version.outputs.package-tag }}
+      package-version: ${{ steps.package-version.outputs.package-version }}
       release: ${{ steps.release-version.outputs.release }}
       prerelease: ${{ steps.semver.outputs.prerelease }}
     steps:
@@ -35,9 +35,7 @@ jobs:
 
       - name: Get package version
         id: package-version
-        run: |
-          echo "package-tag=$(poetry version --short)" >> $GITHUB_OUTPUT
-          echo "package-version=v$(poetry version --short)" >> $GITHUB_OUTPUT
+        run: echo "package-version=v$(poetry version --short)" >> $GITHUB_OUTPUT
 
       - name: Get release version
         id: release-version
@@ -56,13 +54,13 @@ jobs:
     name: Deploy Python 🐍 distributions 📦 to PyPI
     needs: [get-package-version]
     runs-on: ubuntu-latest
-    if: needs.get-package-version.outputs.package-tag != needs.get-package-version.outputs.release
+    if: needs.get-package-version.outputs.package-version != needs.get-package-version.outputs.release
 
     steps:
       - name: Check semver
         if: ${{ needs.get-package-version.outputs.prerelease != '' }}
         run: |
-          echo "::error::Skipping pre-release version: ${{ needs.get-package-version.outputs.package-tag }}"
+          echo "::error::Skipping pre-release version: ${{ needs.get-package-version.outputs.package-version }}"
           exit 1
 
       - uses: actions/checkout@v3
@@ -75,7 +73,7 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           commit: ${{ github.ref_name }}
-          tag: ${{ needs.get-package-version.outputs.package-tag }}
+          tag: ${{ needs.get-package-version.outputs.package-version }}
           generateReleaseNotes: true
           artifacts: |
             dist/*.whl
