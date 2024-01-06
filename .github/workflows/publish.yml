@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   release:
@@ -24,7 +25,13 @@ jobs:
         with:
           tag: ${{ format('v{0}', steps.read_toml.outputs.value) }}
 
-      - uses: softprops/action-gh-release@v1
+      - name: Get package version
+        id: package-version
+        run: echo "package-version=v$(poetry version --short)" >> $GITHUB_OUTPUT
+
+      - name: Get release version
+        id: release-version
+        uses: pozetroninc/github-action-get-latest-release@master
         with:
           tag_name: ${{ format('v{0}', steps.read_toml.outputs.value) }}
           generate_release_notes: true
@@ -33,3 +40,12 @@ jobs:
         uses: JRubics/poetry-publish@v1.13
         with:
           pypi_token: ${{ secrets.PYPI_API_TOKEN }}
+
+      - uses: ncipollo/release-action@v1
+        with:
+          commit: ${{ github.ref_name }}
+          tag: ${{ needs.get-package-version.outputs.package-version }}
+          generateReleaseNotes: true
+          artifacts: |
+            dist/*.whl
+            dist/*.tar.gz

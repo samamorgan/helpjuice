@@ -5,7 +5,6 @@
     }
   },
   "editor.formatOnSave": true,
-  "python.formatting.provider": "black",
   "python.terminal.activateEnvironment": true,
   "python.testing.pytestArgs": ["tests"],
   "python.testing.unittestEnabled": false,
