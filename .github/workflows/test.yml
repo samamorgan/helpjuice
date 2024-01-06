@@ -30,7 +30,7 @@ jobs:
         python-version: ${{ fromJson(needs.get-python-versions.outputs.python-matrix) }}
 
     steps:
-      - name: Checkout ${{ github.action_repository }}
+      - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v3
 
       - name: Setup Python ${{ matrix.python-version }}

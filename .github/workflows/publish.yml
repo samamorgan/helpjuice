@@ -14,7 +14,7 @@ jobs:
       package-version: ${{ steps.package-version.outputs.package-version }}
       version-compairson: ${{ steps.semver.outputs.comparison-result}}
     steps:
-      - name: Checkout ${{ github.action_repository }}
+      - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -59,7 +59,7 @@ jobs:
     if: ${{ needs.get-package-version.outputs.version-compairson != '=' }}
 
     steps:
-      - name: Checkout ${{ github.action_repository }}
+      - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v3
 
       - name: Build and publish to PyPI
