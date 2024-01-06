@@ -12,8 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       package-version: ${{ steps.package-version.outputs.package-version }}
-      release: ${{ steps.release-version.outputs.release }}
-      prerelease: ${{ steps.semver.outputs.prerelease }}
+      version-compairson: ${{ steps.semver.outputs.comparison-result}}
     steps:
       - uses: actions/checkout@v4
 
@@ -49,20 +48,21 @@ jobs:
         with:
           lenient: false
           version: ${{ steps.package-version.outputs.package-version }}
+          compare-to: ${{ steps.release-version.outputs.release }}
+
+      - name: Pre-release check
+        if: ${{ steps.semver.outputs.prerelease != '' }}
+        run: |
+          echo "::error::Skipping pre-release version: ${{ steps.package-version.outputs.package-version}}"
+          exit 1
 
   deploy:
     name: Deploy Python 🐍 distributions 📦 to PyPI
     needs: [get-package-version]
     runs-on: ubuntu-latest
-    if: needs.get-package-version.outputs.package-version != needs.get-package-version.outputs.release
+    if: ${{ needs.get-package-version.outputs.version-compairson != '=' }}
 
     steps:
-      - name: Check semver
-        if: ${{ needs.get-package-version.outputs.prerelease != '' }}
-        run: |
-          echo "::error::Skipping pre-release version: ${{ needs.get-package-version.outputs.package-version }}"
-          exit 1
-
       - uses: actions/checkout@v3
 
       - name: Build and publish to pypi
